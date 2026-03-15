@@ -1,0 +1,391 @@
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>VelvetLoops</title>
+
+<link rel="icon" href="data:image/svg+xml,
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'>
+<rect width='100' height='100' rx='20' fill='%23e8dcc8'/>
+<text x='50%' y='55%' font-size='40' text-anchor='middle' fill='%235b4b3a'>VL</text>
+</svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Inter&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+font-family:Inter;
+background:#f5efe6;
+color:#3a342e;
+}
+
+/* NAV */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+background:#ede4d8;
+padding:15px;
+display:flex;
+justify-content:center;
+gap:25px;
+}
+
+nav button{
+background:none;
+border:none;
+font-weight:bold;
+cursor:pointer;
+font-size:16px;
+}
+
+/* PAGES */
+
+.page{
+display:none;
+padding:110px 40px;
+text-align:center;
+}
+
+.active{
+display:block;
+}
+
+/* HERO */
+
+.hero{
+height:320px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background:#e8dcc8;
+}
+
+.hero h1{
+font-family:"Dancing Script";
+font-size:70px;
+margin:0;
+}
+
+/* PRODUCTS */
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+margin-top:30px;
+}
+
+.card{
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 10px 20px rgba(0,0,0,0.1);
+}
+
+button{
+background:#d6c4a8;
+border:none;
+padding:10px 16px;
+margin-top:6px;
+cursor:pointer;
+}
+
+/* SEARCH */
+
+#search{
+padding:10px;
+width:250px;
+margin-top:20px;
+}
+
+/* DISCLAIMER */
+
+.disclaimer{
+margin-top:30px;
+background:#f3e9dc;
+padding:20px;
+border-radius:10px;
+max-width:500px;
+margin:auto;
+}
+
+/* CHATBOT */
+
+#chatbot{
+position:fixed;
+bottom:20px;
+right:20px;
+width:260px;
+background:white;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+#chatHeader{
+background:#e6d7c3;
+padding:10px;
+font-weight:bold;
+}
+
+#messages{
+height:150px;
+overflow:auto;
+padding:10px;
+font-size:14px;
+text-align:left;
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<button onclick="showPage('home')">Home</button>
+<button onclick="showPage('shop')">Shop</button>
+<button onclick="showPage('cart')">Checkout</button>
+<button onclick="showPage('account')">Account</button>
+</nav>
+
+<!-- HOME -->
+
+<div id="home" class="page active">
+
+<div class="hero">
+<h1>VelvetLoops</h1>
+<p>Handmade Crochet Luxury</p>
+<button onclick="showPage('shop')">Shop Collection</button>
+</div>
+
+</div>
+
+<!-- SHOP -->
+
+<div id="shop" class="page">
+
+<h2>Our Crochet Collection</h2>
+
+<input id="search" placeholder="Search products..." onkeyup="searchProducts()">
+
+<div class="products">
+
+<div class="card">
+<h3>VelvetLoops Bunny Tote Bag</h3>
+<p>R420</p>
+<button onclick="addCart('VelvetLoops Bunny Tote Bag',420)">Add to Cart</button>
+</div>
+
+<div class="card">
+<h3>Pastel Patchwork Crochet Bag</h3>
+<p>R380</p>
+<button onclick="addCart('Pastel Patchwork Crochet Bag',380)">Add to Cart</button>
+</div>
+
+<div class="card">
+<h3>VelvetLoops Bow Scarf</h3>
+<p>R240</p>
+<button onclick="addCart('VelvetLoops Bow Scarf',240)">Add to Cart</button>
+</div>
+
+<div class="card">
+<h3>Classic Crochet Beanie</h3>
+<p>R220</p>
+<button onclick="addCart('Classic Crochet Beanie',220)">Add to Cart</button>
+</div>
+
+<div class="card">
+<h3>VelvetLoops Mini Pouch</h3>
+<p>R160</p>
+<button onclick="addCart('VelvetLoops Mini Pouch',160)">Add to Cart</button>
+</div>
+
+<div class="card">
+<h3>Crochet Pencil Case</h3>
+<p>R150</p>
+<button onclick="addCart('Crochet Pencil Case',150)">Add to Cart</button>
+</div>
+
+</div>
+
+</div>
+
+<!-- CART -->
+
+<div id="cart" class="page">
+
+<h2>Your Cart</h2>
+
+<div id="items"></div>
+
+<h3 id="total"></h3>
+
+<button onclick="checkout()">Checkout via WhatsApp</button>
+
+<div class="disclaimer">
+
+<h3>Payment & Delivery Notice</h3>
+
+<p>
+VelvetLoops items are handmade. After placing your order you will receive payment details via WhatsApp.
+</p>
+
+<p>
+Your order will be made and shipped once payment has been confirmed.
+</p>
+
+<p>
+Estimated preparation time: 2–5 days depending on the item.
+</p>
+
+</div>
+
+</div>
+
+<!-- ACCOUNT -->
+
+<div id="account" class="page">
+
+<h2>Your Account</h2>
+
+<input id="username" placeholder="Enter your name">
+
+<button onclick="saveUser()">Save</button>
+
+<p id="welcome"></p>
+
+</div>
+
+<!-- CHATBOT -->
+
+<div id="chatbot">
+
+<div id="chatHeader">VelvetLoops Bot 🤎</div>
+
+<div id="messages"></div>
+
+<input id="chatInput">
+
+<button onclick="send()">Send</button>
+
+</div>
+
+<script>
+
+/* PAGE NAV */
+
+function showPage(page){
+
+document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"))
+
+document.getElementById(page).classList.add("active")
+
+}
+
+/* CART */
+
+let cart=[]
+
+function addCart(name,price){
+
+cart.push({name,price})
+
+renderCart()
+
+}
+
+function renderCart(){
+
+let html=""
+let total=0
+
+cart.forEach(item=>{
+
+html+=`<p>${item.name} - R${item.price}</p>`
+total+=item.price
+
+})
+
+document.getElementById("items").innerHTML=html
+document.getElementById("total").innerText="Total: R"+total
+
+}
+
+/* WHATSAPP CHECKOUT */
+
+function checkout(){
+
+let msg="Hello VelvetLoops I want to order: "
+
+cart.forEach(item=>msg+=item.name+" ")
+
+window.open("https://wa.me/?text="+encodeURIComponent(msg))
+
+}
+
+/* SEARCH */
+
+function searchProducts(){
+
+let input=document.getElementById("search").value.toLowerCase()
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.style.display=card.innerText.toLowerCase().includes(input) ? "block":"none"
+
+})
+
+}
+
+/* ACCOUNT */
+
+function saveUser(){
+
+let name=document.getElementById("username").value
+
+localStorage.setItem("vlUser",name)
+
+document.getElementById("welcome").innerText="Welcome "+name+" 🤎"
+
+}
+
+window.onload=function(){
+
+let u=localStorage.getItem("vlUser")
+
+if(u) document.getElementById("welcome").innerText="Welcome "+u+" 🤎"
+
+}
+
+/* CHATBOT */
+
+function send(){
+
+let input=document.getElementById("chatInput").value.toLowerCase()
+
+let box=document.getElementById("messages")
+
+box.innerHTML+=`<p><b>You:</b> ${input}</p>`
+
+let reply="Ask me about our crochet products 🤎"
+
+if(input.includes("price")) reply="Our products range from R150 to R420."
+if(input.includes("custom")) reply="Yes! We accept custom crochet orders."
+if(input.includes("shipping")) reply="Orders ship after payment confirmation."
+if(input.includes("sex")||input.includes("porn")||input.includes("nude"))
+reply="Oops! Let's keep things cozy and crochet-focused 🧶🤎"
+
+box.innerHTML+=`<p><b>Bot:</b> ${reply}</p>`
+
+}
+
+</script>
+
+</body>
+</html>
+```
